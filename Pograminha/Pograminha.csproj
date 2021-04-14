@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Pograminha.Domain\Pograminha.Domain.csproj" />
     <ProjectReference Include="..\Infra\Infra.SQL\Pograminha.Infra.SQL\Pograminha.Infra.SQL.csproj" />
+    <ProjectReference Include="..\Services\Pograminha.Services\Pograminha.Services.csproj" />
   </ItemGroup>
 
 </Project>

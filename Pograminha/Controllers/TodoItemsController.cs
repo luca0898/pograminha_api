@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Pograminha.Domain.Contracts;
 using Pograminha.Domain.Model;
-using Pograminha.Infra.SQL;
 using Pograminha.Model;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Threading.Tasks;
 
 namespace Pograminha.Controllers
@@ -13,33 +11,40 @@ namespace Pograminha.Controllers
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITodoItemService _todoService;
 
-        public TodoItemsController(ApplicationDbContext context)
+        public TodoItemsController(ITodoItemService todoService)
         {
-            _context = context;
+            _todoService = todoService;
         }
 
         // GET: api/TodoItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems()
+        public async Task<IActionResult> GetTodoItems()
         {
-            return await _context.TodoItems
-                .Select(x => ItemToDTO(x))
-                .ToListAsync();
+            var todos = await _todoService.FindAllAsync();
+
+            return Ok(new { data = todos });
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoItemDTO>> GetTodoItem(long id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var todoItem = await _todoService.FindOneAsync(id);
 
             if (todoItem == null)
             {
                 return NotFound();
             }
 
-            return ItemToDTO(todoItem);
+            var viewmodel = new TodoItemDTO
+            {
+                Id = todoItem.Id,
+                IsComplete = todoItem.IsComplete,
+                Name = todoItem.Name
+            };
+
+            return Ok(new { data = viewmodel });
         }
 
         [HttpPut("{id}")]
@@ -50,7 +55,7 @@ namespace Pograminha.Controllers
                 return BadRequest();
             }
 
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var todoItem = await _todoService.FindOneAsync(id);
             if (todoItem == null)
             {
                 return NotFound();
@@ -59,14 +64,7 @@ namespace Pograminha.Controllers
             todoItem.Name = todoItemDTO.Name;
             todoItem.IsComplete = todoItemDTO.IsComplete;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
-            {
-                return NotFound();
-            }
+            await _todoService.UpdateAsync(todoItem);
 
             return NoContent();
         }
@@ -80,40 +78,24 @@ namespace Pograminha.Controllers
                 Name = todoItemDTO.Name
             };
 
-            _context.TodoItems.Add(todoItem);
-            await _context.SaveChangesAsync();
+            await _todoService.CreateAsync(todoItem);
 
-            return CreatedAtAction(
-                nameof(GetTodoItem),
-                new { id = todoItem.Id },
-                ItemToDTO(todoItem));
+            return Created(new Uri($"https://localhost:5001/api/todoitems/{todoItem.Id}"), todoItem);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodoItem(long id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var todoItem = await _todoService.FindOneAsync(id);
 
             if (todoItem == null)
             {
                 return NotFound();
             }
 
-            _context.TodoItems.Remove(todoItem);
-            await _context.SaveChangesAsync();
+            await _todoService.DeleteAsync(todoItem);
 
             return NoContent();
         }
-
-        private bool TodoItemExists(long id) =>
-             _context.TodoItems.Any(e => e.Id == id);
-
-        private static TodoItemDTO ItemToDTO(TodoItem todoItem) =>
-            new TodoItemDTO
-            {
-                Id = todoItem.Id,
-                Name = todoItem.Name,
-                IsComplete = todoItem.IsComplete
-            };
     }
 }

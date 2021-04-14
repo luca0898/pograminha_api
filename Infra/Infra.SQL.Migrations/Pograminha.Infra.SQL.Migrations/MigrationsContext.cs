@@ -36,7 +36,7 @@ namespace Pograminha.Infra.SQL.Migrations
                 .AddEnvironmentVariables()
                 .Build();
 
-            optionsBuilder.UseSqlServer(config.GetConnectionString("comfyDbSqlConnectionString"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("pograminhaDb"));
 
             base.OnConfiguring(optionsBuilder);
         }

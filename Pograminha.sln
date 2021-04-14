@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pograminha", "Pograminha\Pograminha.csproj", "{82630E6C-5988-4EE9-8B24-9C6F665E0C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pograminha", "Pograminha\Pograminha.csproj", "{82630E6C-5988-4EE9-8B24-9C6F665E0C7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pograminha.Infra.SQL", "Infra\Infra.SQL\Pograminha.Infra.SQL\Pograminha.Infra.SQL.csproj", "{ECD12520-D0D3-427A-9C76-A247F35E80B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pograminha.Infra.SQL", "Infra\Infra.SQL\Pograminha.Infra.SQL\Pograminha.Infra.SQL.csproj", "{ECD12520-D0D3-427A-9C76-A247F35E80B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pograminha.Domain", "Domain\Pograminha.Domain\Pograminha.Domain.csproj", "{FCADFCFD-88AE-434E-B439-E783A1B1A2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pograminha.Domain", "Domain\Pograminha.Domain\Pograminha.Domain.csproj", "{FCADFCFD-88AE-434E-B439-E783A1B1A2EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pograminha.Infra.SQL.Migrations", "Infra\Infra.SQL.Migrations\Pograminha.Infra.SQL.Migrations\Pograminha.Infra.SQL.Migrations.csproj", "{8061E17E-2079-40F6-B4FF-9A8EA3784864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pograminha.Infra.SQL.Migrations", "Infra\Infra.SQL.Migrations\Pograminha.Infra.SQL.Migrations\Pograminha.Infra.SQL.Migrations.csproj", "{8061E17E-2079-40F6-B4FF-9A8EA3784864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pograminha.Services", "Services\Pograminha.Services\Pograminha.Services.csproj", "{A5704606-1A4A-49DC-BC89-63685E0FCFA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8061E17E-2079-40F6-B4FF-9A8EA3784864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8061E17E-2079-40F6-B4FF-9A8EA3784864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8061E17E-2079-40F6-B4FF-9A8EA3784864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5704606-1A4A-49DC-BC89-63685E0FCFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5704606-1A4A-49DC-BC89-63685E0FCFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5704606-1A4A-49DC-BC89-63685E0FCFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5704606-1A4A-49DC-BC89-63685E0FCFA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
